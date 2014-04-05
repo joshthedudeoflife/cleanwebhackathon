@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class DataframeTest < ActiveSupport::TestCase
+class PledgeActionTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

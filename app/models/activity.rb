@@ -5,6 +5,6 @@ class Activity < ActiveRecord::Base
   belongs_to :user
   
   # validations
-  validates :action, :user, :competition, presence: true
+  validates :action, :user, :challenge, presence: true
   
 end

@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # relations
   has_many :memberships, dependent: :destroy
-  has_many :challenge, through: :memberships
+  has_many :challenges, through: :memberships
   has_many :activities, dependent: :destroy
   
   # validations

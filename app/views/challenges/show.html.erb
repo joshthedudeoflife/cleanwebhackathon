@@ -1,0 +1,16 @@
+<h1><%= @challenge.title %></h1>
+<p><%= @challenge.description %></p>
+
+<h2>Activity</h2>
+<ul>
+  <% @activities.each do |a| %>
+    <li><%= a.action.summary %></li>
+  <% end %>
+</ul>
+
+<h2>Steps</h2>
+<ul>
+<% @challenge.steps.each do |step| %>
+  <li><%= step.title %></li>
+<% end %>
+</ul>

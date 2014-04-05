@@ -1,0 +1,7 @@
+<%= button_to "Join Now", challenge_memberships_path(challenge), remote: true, class: "btn btn-primary join-challenge" %>
+
+<script>
+  $('.join-challenge').closest('form').on('ajax:success', function() {
+    $(this).find('.join-challenge').val('Joined').attr('disabled', 'disabled');
+  });
+</script>

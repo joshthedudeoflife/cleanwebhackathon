@@ -1,9 +1,10 @@
 class HomeController < ApplicationController
+  before_action :require_login
+  
 	def index
-  	if @user = current_user
-  		render "index"
-  	else
-  		redirect_to login_path
-  	end
+    @user = current_user([:challenges, :activites])
+    @challenges = Challenge.all
+    @activities = @user.activities
   end
+  
 end

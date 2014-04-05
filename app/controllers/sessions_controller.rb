@@ -4,12 +4,11 @@ class SessionsController < ApplicationController
   end
   
   def create
-	  @user = User.find_by_username(params[:username])
-	  
-	  if @user
+	  if @user = User.find_by_username(params[:user][:username])
 	    set_user(@user)	    
 	    redirect_to root_url, :notice => "Logged in!"
-	  else	    
+	  else	 
+	    @user = User.new
 	    render "new"
 	  end
   end
@@ -17,6 +16,13 @@ class SessionsController < ApplicationController
   def destroy
   	set_user(nil)
 	  redirect_to root_url, :notice => "Logged out!"
+  end
+  
+  private
+  
+  	
+  def user_params
+    params.require(:user).permit(:username)
   end
   
 end

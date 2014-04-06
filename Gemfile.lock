@@ -39,6 +39,8 @@ GEM
     coffee-script-source (1.7.0)
     erubis (2.7.0)
     execjs (2.0.2)
+    greenbutton (0.0.1)
+      nokogiri (~> 1.6)
     hike (1.2.3)
     i18n (0.6.9)
     jbuilder (1.5.3)
@@ -52,8 +54,11 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    mini_portile (0.5.3)
     minitest (4.7.5)
     multi_json (1.9.2)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
     polyglot (0.3.4)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -113,6 +118,7 @@ PLATFORMS
 DEPENDENCIES
   bootstrap-sass (~> 3.1.1)
   coffee-rails (~> 4.0.0)
+  greenbutton
   jbuilder (~> 1.2)
   jquery-rails
   rails (= 4.0.4)

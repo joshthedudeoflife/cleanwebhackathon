@@ -2,6 +2,37 @@
 <p><%= @challenge.description %></p>
 
 <h2>Activity</h2>
+<div class="row">
+  <div class="timeline">
+  
+    <div class="timeline-item">
+      <div class="timeline-date">
+        3 hours ago
+      </div>
+      <div clsss="timeline-icon">
+        <span class="glyphicon glyphicon-record"></span>
+      </div>
+      <div class="timeline-body">
+        <span class="arrow left"></span>
+        Blah blah blah Blah blah blahBlah blah blah Blah blah blah Blah blah blah Blah blah blah Blah blah blah Blah blah blah
+      </div>
+    </div>
+    
+    <div class="timeline-item">
+      <div class="timeline-caption">
+        <div class="panel fixed-width">
+          <div class="panel-body">
+            <span class="arrow right"></span>
+            <span class="timeline-icon"><i class="time-icon bg-light dker"></i></span>
+            CONTENT HERE
+          </div>       
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+            
 <ul>
   <% @activities.each do |a| %>
     <li><%= a.action.summary %></li>
@@ -11,6 +42,16 @@
 <h2>Steps</h2>
 <ul>
 <% @challenge.steps.each do |step| %>
-  <li><%= step.title %></li>
+  <li><%= link_to step.title, challenge_step_path(@challenge, step), data: {toggle: "modal", target: "#step"} %></li>
 <% end %>
 </ul>
+
+<div class="modal fade" id="step">
+  <div class="modal-dialog"><div class="modal-content"></div></div>
+</div>
+
+<script>
+  $("#step").on("hide.bs.modal", function() {
+    $(this).removeData('bs.modal').find('.modal-content').children().remove();
+  });
+</script>

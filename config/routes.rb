@@ -7,6 +7,10 @@ HackthonProject::Application.routes.draw do
   resources :users, only: [:new, :create]
   resources :challenges, only: [:show] do 
     resources :memberships, only: [:create], format: :json
+    
+    resources :steps, only: [:show] do 
+      resources :pledges, only: [:create], format: :json
+    end
   end
   root :to => 'home#index'
   

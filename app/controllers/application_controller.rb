@@ -28,4 +28,8 @@ class ApplicationController < ActionController::Base
 		end
 	end
 	
+	def log_activity(challenge_id, action)
+	  Activity.create(user_id: session[:user_id], challenge_id: challenge_id, action: action, points: action.points)
+	end
+	
 end

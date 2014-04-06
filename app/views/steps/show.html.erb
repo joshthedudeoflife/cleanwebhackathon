@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+  <h4 class="modal-title"><%= @step.title %></h4>
+</div>
+
+<div class="modal-body">
+  <%= @step.description %>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">No thanks</button>
+  <% unless @completed %>
+    <%= button_to "I'll do it!", challenge_step_pledges_path(@challenge, @step), remote: true, class: "btn btn-primary take-pledge" %>
+  <% end %>
+</div>
+
+<script>
+  $('.take-pledge').closest('form').on('ajax:success', function() {
+    $(this).closest('.modal').modal('hide');
+    location.reload();
+  });
+</script>

@@ -38,6 +38,8 @@ end
 # green button parser
 gem "greenbutton"
 
+
+gem 'remotipart', '~> 1.2'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

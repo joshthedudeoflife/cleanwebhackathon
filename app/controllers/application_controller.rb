@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 	end
 	
 	def log_activity(challenge_id, action)
-	  Activity.create(user_id: session[:user_id], challenge_id: challenge_id, action: action, points: action.points)
+	  Activity.create(user_id: session[:user_id], challenge_id: challenge_id, action: action, points: action.points, created_at: action.created_at)
 	end
 	
 end

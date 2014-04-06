@@ -1,50 +1,59 @@
 <h1><%= @challenge.title %></h1>
 <p><%= @challenge.description %></p>
 
+
+<h3>Upload your Green Button data</h3>
+<%= form_tag challenge_green_button_data_path(@challenge), multipart: true, class: "form-inline", remote: true  do %>
+  <%= file_field_tag :file, class: "form-control" %>
+  <%= submit_tag "Upload Data", class: "btn btn-primary" %>
+<% end %>
+
 <h2>Activity</h2>
 <div class="row">
-  <div class="timeline">
-  
-    <div class="timeline-item">
-      <div class="timeline-date">
-        3 hours ago
-      </div>
-      <div clsss="timeline-icon">
-        <span class="glyphicon glyphicon-record"></span>
-      </div>
-      <div class="timeline-body">
-        <span class="arrow left"></span>
-        Blah blah blah Blah blah blahBlah blah blah Blah blah blah Blah blah blah Blah blah blah Blah blah blah Blah blah blah
-      </div>
+  <div class="col-md-6">
+    <div class="timeline next-steps">
+      <% @next_steps.each do |step| %>
+        <%= link_to challenge_step_path(@challenge, step), data: {toggle: "modal", target: "#step"} do %>
+          <div class="timeline-item">
+            <div class="timeline-icon">
+              <%= step.pledge_points %>
+            </div>
+            <div class="timeline-body">
+              <div class="timeline-popover">
+                <span class="arrow left"></span>
+                <%= step.title %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %> 
     </div>
     
-    <div class="timeline-item">
-      <div class="timeline-caption">
-        <div class="panel fixed-width">
-          <div class="panel-body">
-            <span class="arrow right"></span>
-            <span class="timeline-icon"><i class="time-icon bg-light dker"></i></span>
-            CONTENT HERE
-          </div>       
+    <div class="timeline recent-activity">
+      <div class="timeline-score">
+        <div class="timeline-icon"><%= @activities.map {|i| i.points}.sum %></div>
+        <div class="timeline-body">Points</div>
+      </div>
+    
+    <% @activities.each do |a| %>
+      <div class="timeline-item">
+        <div class="timeline-date">
+          <%= "#{time_ago_in_words(a.created_at)} ago" %>
+        </div>
+        <div class="timeline-icon">
+          <%= a.points %>
+        </div>
+        <div class="timeline-body">
+          <div class="timeline-popover">
+            <span class="arrow left"></span>
+            <%= a.action.summary %>
+          </div>
         </div>
       </div>
+    <% end %>    
     </div>
-    
   </div>
 </div>
-            
-<ul>
-  <% @activities.each do |a| %>
-    <li><%= a.action.summary %></li>
-  <% end %>
-</ul>
-
-<h2>Steps</h2>
-<ul>
-<% @challenge.steps.each do |step| %>
-  <li><%= link_to step.title, challenge_step_path(@challenge, step), data: {toggle: "modal", target: "#step"} %></li>
-<% end %>
-</ul>
 
 <div class="modal fade" id="step">
   <div class="modal-dialog"><div class="modal-content"></div></div>

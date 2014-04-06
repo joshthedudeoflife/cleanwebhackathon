@@ -12,6 +12,6 @@ class Actions::PledgeAction < ActiveRecord::Base
   end
   
   def summary
-    return "+#{points}: #{step.pledge_description}"
+    return step.pledge_description
   end
 end

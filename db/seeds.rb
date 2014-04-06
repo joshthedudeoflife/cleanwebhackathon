@@ -19,10 +19,18 @@ require "CSV"
 # u2.memberships.create(challenge: c)
 
 
-energy_challenge = Challenge.create(title: "Mr T.", description: "Pitty the fool", start_date: Time.now, end_date: Time.now+86400)
+energy_challenge = Challenge.create(title: "Make your home more efficient", description: "Use more light bulbs", start_date: Time.new(2014, 03, 29, 1, 00, 00, "+02:00"), end_date: Time.now+86400)
 CSV.foreach("db/seeds/energy_steps.csv") do |row|
 	title = row[0]
 	description = row[2]
 	points = row[1]
   puts energy_challenge.steps.create(title: title, description: description, pledge_description: "upgraded windows.", pledge_points: 100)
+end
+
+transportation_challenge = Challenge.create(title: "Driving and Commuting Habbits", description: "Join your coworkers to reduce your transportation footprint", start_date: Time.new(2014, 04, 01, 1, 00, 00, "+02:00"), end_date: Time.now+86400)
+CSV.foreach("db/seeds/transportation.csv") do |row|
+	title = row[0]
+	description = row[2]
+	points = row[1]
+  puts transportation_challenge.steps.create(title: title, description: description, pledge_description: "upgraded windows.", pledge_points: 100)
 end

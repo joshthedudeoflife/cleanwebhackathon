@@ -4,7 +4,8 @@ class ChallengesController < ApplicationController
   def show
     @user = current_user([:actions])
     @challenge = Challenge.includes([:steps]).find(params[:id])
-    @activities = current_user.activities.where(challenge: @challenge)
-    @next_steps = @challenge.steps # fix this
+    @is_member = @user.memberships.where(challenge_id: @challenge.id).present?
+    @activities = current_user.activities.where(challenge: @challenge).order(created_at: :desc)
+    @next_steps = @challenge.steps # fix this later
   end
 end

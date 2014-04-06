@@ -1,100 +1,133 @@
-<nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Brand</a>
+<div class="row">
+  <div class="col-md-12 page-header">
+    <h1>Welcome to your Greenlink Dashboard</h1>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 style="font-weight: lighter;">Active Challenges</h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Challenge</th>
+              <th>Ends In</th>
+              <th>Join</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @challenges.each do |c| %>
+            <tr>
+              <td><%= link_to c.title, challenge_path(c) %></td>
+              <td><%= time_ago_in_words(c.end_date) %></td>
+              <% if @user.challenges.include? c %>
+                <td><button class="btn btn-primary" disabled="disabled">Joined</button></td>      
+              <% else %>
+                <td><%= render partial: "memberships/join", locals: {challenge: c} %></td>      
+              <% end %>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <h3 style="font-weight: lighter;">Redeem your <span style="font-weight: normal"><%= @user.points %></span> GreenPoints for</h3>
+      </div>
+      <div class="col-md-3 center">
+        <a href="#">
+          <h4>iTunes credit</h4>
+          <img class="img-responsive" src="http://library.wisc.edu/news/files/2013/04/15-dollar-itunes-gift-card.jpg">
+        </a>
+      </div>
+      
+      <div class="col-md-3 center">
+        <a href="#">
+          <h4>Nest discounts</h4>
+          <img class="img-responsive" src="http://gigaom2.files.wordpress.com/2012/06/nest-thermostat-featured.jpg">
+        </a>
+      </div>
+      
+      <div class="col-md-3 center">
+        <a href="#">
+          <h4>Hubway Rides</h4>
+          <img class="img-responsive" src="http://www.mapc.org/sites/default/files/images/Hubway-logo-web.gif">
+        </a>
+      </div>
+      
+      <div class="col-md-3 center">
+        <a href="#">
+          <h4>Zipcar</h4>
+          <img class="img-responsive" src="http://www.parking.jhu.edu/sebin/c/g/zipcar.gif">
+        </a>
+      </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="/challenges/1">Challenges</a></li>
+    </div>
+  </div>
+  
+  <div class="col-md-4">
+    <div class="panel"><div class="panel-body">
+      <!-- Nav tabs -->
+      <ul class="nav nav-pills">
+        <li><a href="#activity" data-toggle="tab">Recent Activity</a></li>
+        <li class="active"><a href="#leaderboard" data-toggle="tab">Leaderboard</a></li>
       </ul>
-        </li>
-        <ul class="nav navbar-nav">
-        <li class="active"><a href="/challenges/1">Points</a></li>
-      </ul>
-        </li>
-        <ul class="nav navbar-nav">
-        <li class="active"><a href="/leader_board.html">Leader Board</a></li>
-      </ul>
-        </li>
-        <ul class="nav navbar-nav">
-        <li class="active"><a href="/table.html">Recommendations</a></li>
-      </ul>
-        </li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
-
-<div class="page-header">
-  <h1>This is your Greenlink Dashboard Page</h1>
+      
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <br/>
+        <div class="tab-pane" id="activity">
+          <div class="panel panel-default">          
+            <!-- List group -->
+            <ul class="list-group">
+              <% Activity.order(created_at: :desc).limit(5).each do |a| %>  
+                <li class="list-group-item"><%= "#{a.user.name} earned #{a.points} points." %></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="tab-pane active" id="leaderboard">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Person</th>
+                <th>Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td> <td><a href="#">Mr. T</a></td> <td>1260</td></tr>
+              <tr><td>2</td> <td><a href="#">Voltaire</a></td> <td>850</td></tr>
+              <tr><td>3</td> <td><a href="#">Art Rosenfeld</a></td> <td>750</td></tr>
+              <tr><td>4</td> <td><a href="#">Mr. T</a></td> <td>690</td></tr>
+            </tbody>
+          </table>        
+        </div>
+      </div>
+      <!-- end tab content -->
+      
+    </div></div>
+  </div>
 </div>
 
-
-<div class="row">
-  <%= @user.name %>
-  <h2>Points: <%= @user.points %></h2>
-</div>
-
-<div class="row">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Challenge</th>
-        <th>Join</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @challenges.each do |c| %>
-      <tr>
-        <td><%= link_to c.title, challenge_path(c) %></td>
-        <% if @user.challenges.include? c %>
-          <td><button class="btn btn-primary" disabled="disabled">Joined</button></td>      
-        <% else %>
-          <td><%= render partial: "memberships/join", locals: {challenge: c} %></td>      
-        <% end %>
-      </tr>
-      <% end %>
-    </tbody>
-  <div class="row">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Points Earned/Rewards</th>
-      </tr>
-    <tbody>
-       <td>Points: <%= @user.points %></td>
-    </tbody>
-  </table>
-</div>
-<div class="row">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Leader Board</th>
-      </tr>
-    <tbody>
-    <td><a href="/leader_board.html">Leader Board</a></td>
-    </tbody>
-  </table>
-</div>
-<div class="row">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Recommendations</th>
-      </tr>
-    <tbody>
-    <td><a href="/table.html">Recommendations</a></td>
-    </tbody>
-  </table>
-</div>
+<style>
+  .center {
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .center a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .center img {
+    text-align: center;
+    margin: 0 auto;
+  }
+</style>

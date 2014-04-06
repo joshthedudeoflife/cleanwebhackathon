@@ -1,0 +1,56 @@
+<div class="navbar" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to "GreenLink", root_url, class: "navbar-brand" %>
+    </div>
+    
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><%= link_to "Dashboard", root_url %></li>
+        <li><a href="#about">About</a></li>
+        <li><%= link_to "GreenPerks", root_url %></li>
+      </ul>
+      
+      <% if @user = current_user %>
+          <div class="navbar-right" style="margin-right: 10px;">
+            <p class="navbar-text"><%= current_user.points %> Points</p>
+            <%= link_to "Log Out", logout_path, class: "btn btn-primary navbar-btn " %>
+
+          </div>
+
+      <% else %>
+      
+        <%= form_for User.new, url: sessions_path, html: {class: "navbar-form navbar-right", style: "margin-right: 10px;"} do |f| %>
+        	<%= f.text_field :username, placeholder: "username", class: "form-control"%>
+        	<%= password_field_tag :pasword, nil, class: "form-control", placeholder: "password" %>
+        	<%= f.submit "Log In", class: "btn btn-primary"%>
+        <% end %>
+
+      <% end %>
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+<style>
+  .navbar {
+    background-color: rgb(27, 210, 150);
+    color: #333;
+    border: none;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .navbar .btn {
+    color: white;
+  }
+</style>

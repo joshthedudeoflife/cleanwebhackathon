@@ -7,10 +7,15 @@ class Actions::DataAction < ActiveRecord::Base
   validates :user, :value, presence: true
   
   def points    
-    value > 0 ? value : 0
+    value > 0 ? value * 10 : 0
   end
   
   def summary
-    "Saved #{value.round}% this week."
+    if value < 0
+      "Used #{value.round}% more electricity this week than last week."
+    else
+      "Used #{value.round}% less electricity than last week."
+    end
+    
   end
 end

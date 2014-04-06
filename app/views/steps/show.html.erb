@@ -4,7 +4,8 @@
 </div>
 
 <div class="modal-body">
-  <%= @step.description %>
+  <h2 style="font-weight: 300; margin-top: 0;"><span style="font-weight: normal"><%= @step.pledge_points %></span> Points</h2>
+  <div><%= @step.description.html_safe %></div>
 </div>
 
 <div class="modal-footer">

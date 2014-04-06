@@ -8,29 +8,27 @@
 
 require "CSV"
 
-# u1 = User.create(name: "Josh Chou", username: "joshthedudeoflife")
-# u2 = User.create(name: "Jeff Mekler", username: "jmekler")
-# 
-# c = Challenge.create(title: "Electricity challenge", description: "Reduce your energy usege at home.", start_date: "1/1/14", end_date: "4/1/14")
-# c.steps.create(title: "Replace a light bulb.", description: "Be cool yo.", pledge_description: "replaced old light bulbs.", pledge_points: 10);
-# c.steps.create(title: "Replace windows.", description: "Be cool yo.", pledge_description: "upgraded windows.", pledge_points: 100);
-# 
-# u1.memberships.create(challenge: c)
-# u2.memberships.create(challenge: c)
+u1 = User.create(name: "Josh Chou", username: "joshthedudeoflife")
+u2 = User.create(name: "Jeff Mekler", username: "jmekler")
 
 
-energy_challenge = Challenge.create(title: "Make your home more efficient", description: "Use more light bulbs", start_date: Time.new(2014, 03, 29, 1, 00, 00, "+02:00"), end_date: Time.now+86400)
-CSV.foreach("db/seeds/energy_steps.csv") do |row|
+c = Challenge.create(title: "Reduce Energy Usage at Home", description: "<p>One of the best ways to be more sustainable is to make your home run more efficiently. Take this challenge to decrease your environmental footprint and to save money on your utility bills.</p><p>Saving energy in your home can be as quick and easy as replacing light bulbs. Earn points for:</p><ul><li>Importing energy data from your utility to see the impact of your actions</li><li>Making low-cost changes and conducting maintenance</li><li>Replacing old home appliances (for the more advanced “do-it-yourselfer”)</li><li>Achieving savings on your energy bill over time</li></ul>", start_date: Time.new(2014, 1, 1, 0, 0, 0), end_date: Time.new(2014, 4, 30, 0, 0, 0))
+
+u1.memberships.create(challenge: c)
+
+CSV.foreach("db/seeds/energy.csv") do |row|
 	title = row[0]
-	description = row[2]
-	points = row[1]
-  puts energy_challenge.steps.create(title: title, description: description, pledge_description: "upgraded windows.", pledge_points: 100)
+	action = row[1]
+	points = row[2].to_i * 10
+	description = "<p>#{row[3]}</p><p>Read more at: <a href='#{row[4]}'>#{row[4]}</a>"
+  c.steps.create(title: title, description: description, pledge_description: action, pledge_points: points)
 end
 
-transportation_challenge = Challenge.create(title: "Driving and Commuting Habbits", description: "Join your coworkers to reduce your transportation footprint", start_date: Time.new(2014, 04, 01, 1, 00, 00, "+02:00"), end_date: Time.now+86400)
+c = Challenge.create(title: "Driving and Commuting Habbits", description: "Join your coworkers to reduce your transportation footprint", start_date: Time.new(2014, 04, 01, 1, 00, 00, "+02:00"), end_date: Time.now+86400)
 CSV.foreach("db/seeds/transportation.csv") do |row|
 	title = row[0]
-	description = row[2]
-	points = row[1]
-  puts transportation_challenge.steps.create(title: title, description: description, pledge_description: "upgraded windows.", pledge_points: 100)
+	action = row[1]
+	points = row[2].to_i * 10
+	description = "<p>#{row[3]}</p><p>Read more at: <a href='#{row[4]}'>#{row[4]}</a>"
+  c.steps.create(title: title, description: description, pledge_description: action, pledge_points: points)
 end

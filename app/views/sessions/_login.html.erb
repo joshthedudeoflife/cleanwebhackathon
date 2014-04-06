@@ -1,0 +1,5 @@
+<%= form_for user, url: sessions_path, html: {class: "navbar-form navbar-right"} do |f| %>
+	<%= f.text_field :username, placeholder: "username", class: "form-control"%>
+	<%= password_field_tag :pasword, nil, class: "form-control", placeholder: "password" %>
+	<%= f.submit "Log In", class: "btn btn-primary"%>
+<% end %>

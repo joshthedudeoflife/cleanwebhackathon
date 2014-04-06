@@ -1,10 +1,25 @@
+<div class="row" id="home-header">
+  <%= image_tag "Bariloche_Argentina2.jpg" %>
+</div>
 
-<h1>Welcome to Greenlink</h1>
+<div class="row">
+  <div class="col-md-4">
+    <h4>Live a more sustainable lifestyle</h4>
+    <p>Living green is easier than you think! Get tips for how to improve your environmental footprint</p>
+  </div>
+  <div class="col-md-4">
+    <h4>How it works</h4>
+    <p>We make it simple to be more sustainable. Earn points for taking simple steps. Earn more points for tracking results.  Cash in points for <a href="#">GreenPerks</a>.</p>
+  </div>
+  <div class="col-md-4">
+    <h4>Share results with your coworkers</h4>
+    <p>Join your work community to see the power of what you can achieve together.</p>
+  </div>
+</div>
 
-<%= form_for @user, url: sessions_path, class: "form" do |f| %>
-<%= image_tag "Bariloche_Argentina2.jpg" %>
-	<%= f.text_field :username, placeholder: "username", class: "form-control"%>
-	<%= password_field_tag :pasword, nil, class: "form-control", placeholder: "password" %>
-	<%= f.submit "Log In", class: "btn btn-primary"%>
-	<br>
-<% end %>
+<style>
+  #home-header {
+    text-align: center;
+    margin: 0 auto;
+  }
+</style>
